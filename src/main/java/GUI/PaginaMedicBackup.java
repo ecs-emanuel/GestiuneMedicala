@@ -1,6 +1,5 @@
 package GUI;
 
-import GUI.PaginaMedicContents.*;
 import Entities.FisaPacient;
 import Entities.Medic;
 import Entities.Pacient;
@@ -19,9 +18,29 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaginaMedic
+public class PaginaMedicBackup
 {
+    private static final int constDayMax = 31;
+    private static final int constMonthMax = 12;
+    private static final int constYearMin = 1900;
+    private static final int constYearMax = 2021;
+
+    private static final Color constColorRed = new Color(250, 70, 70);
+    private static final Color constColorGreen = new Color(5, 170, 50);
+
+    private static final String constAdaugaFisaMesajIncomplete = "Informatii incomplete";
+    private static final String constAdaugaFisaMesajFail = "Operatiunea a esuat";
+    private static final String constAdaugaFisaMesajSuccess = "Fisa adaugata cu success";
+
+    private static final String constModificaFisaMesajIncomplete = "Informatii incomplete";
+    private static final String constModificaFisaMesajFail = "Operatiunea a esuat";
+    private static final String constModificaFisaMesajSuccess = "Fisa modificata cu succes";
+
+    private static final String constModificaProgramareFail = "Operatiunea a esuat";
+    private static final String constModificaProgramareSuccess = "Programare modificata cu succes";
+
     private static JFrame frame;
+
     private static JPanel panelHeader;
     private static JLabel labelHeader;
     private static JButton buttonLogout;
@@ -33,6 +52,7 @@ public class PaginaMedic
     private static JToggleButton buttonMarcareProgramare;
 
     private static JPanel panelBot;
+
     private static Medic medicPagina;
 
     public static void afisarePaginaMedic(Medic medic)
@@ -116,11 +136,13 @@ public class PaginaMedic
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                clearPanelBot();
-
-                if(buttonListaPacienti.isSelected())
+                if(!buttonListaPacienti.isSelected())
                 {
-                    PanelListaPacienti.afisareListaPacienti(panelBot, medicPagina);
+                    clearPanelBot();
+                }
+                else
+                {
+                    afisarePanelBotListaPacienti();
                     buttonAdaugaFisa.setSelected(false);
                     buttonModificaFisa.setSelected(false);
                     buttonMarcareProgramare.setSelected(false);
@@ -142,11 +164,13 @@ public class PaginaMedic
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                clearPanelBot();
-
-                if(buttonAdaugaFisa.isSelected())
+                if(!buttonAdaugaFisa.isSelected())
                 {
-                    AdaugaFisa.afisareAdaugaFisa(panelBot, medicPagina);
+                    clearPanelBot();
+                }
+                else
+                {
+                    afisarePanelBotAdaugaFisa();
                     buttonListaPacienti.setSelected(false);
                     buttonModificaFisa.setSelected(false);
                     buttonMarcareProgramare.setSelected(false);
@@ -169,15 +193,18 @@ public class PaginaMedic
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                clearPanelBot();
-
-                if(buttonModificaFisa.isSelected())
+                if(!buttonModificaFisa.isSelected())
                 {
-                    ModificaFisa.afisareModificaFisa(panelBot, medicPagina);
+                    clearPanelBot();
+                }
+                else
+                {
+                    afisarePanelBotModificaFisa();
                     buttonListaPacienti.setSelected(false);
                     buttonAdaugaFisa.setSelected(false);
                     buttonMarcareProgramare.setSelected(false);
                 }
+
             }
         });
 
@@ -195,15 +222,18 @@ public class PaginaMedic
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                clearPanelBot();
-
-                if(buttonMarcareProgramare.isSelected(panelBot, medicPagina))
+                if(!buttonMarcareProgramare.isSelected())
                 {
-                    MarcareProgramare.afisareMarcareProgramare();
+                    clearPanelBot();
+                }
+                else
+                {
+                    afisarePanelBotMarcheazaProgramare();
                     buttonListaPacienti.setSelected(false);
                     buttonAdaugaFisa.setSelected(false);
                     buttonModificaFisa.setSelected(false);
                 }
+
             }
         });
     }
